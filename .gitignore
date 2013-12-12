@@ -19,6 +19,12 @@ Thumbs.db
 *.ilk
 *.sdf
 *.vsp
+
+*.user
+*.filters
+
 win32deps/libpurple
+
 win32deps/glib
+
 win32deps/dlls
