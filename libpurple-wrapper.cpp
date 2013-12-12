@@ -18,7 +18,6 @@
 #endif
 
 #define CUSTOM_USER_DIRECTORY  "/dev/null"
-#define CUSTOM_PLUGIN_PATH     "C:\\Users\\Paul\\Documents\\Projects\\Paul\\pipe.im\\TEST2\\libpurpletest\\Debug\\plugins"
 #define PLUGIN_SAVE_PREF       "/purple/nullclient/plugins/saved"
 #define UI_ID                  "nullclient"
 
@@ -217,7 +216,7 @@ init_libpurple(void)
     * core-plugins, which includes the protocol-plugins. So it is not essential to add
     * any path here, but it might be desired, especially for ui-specific plugins. */
     purple_plugins_add_search_path("plugins");
-    purple_plugins_add_search_path(CUSTOM_PLUGIN_PATH);
+    //purple_plugins_add_search_path(CUSTOM_PLUGIN_PATH);
 
     /* Now that all the essential stuff has been set, let's try to init the core. It's
     * necessary to provide a non-NULL name for the current ui to the core. This name

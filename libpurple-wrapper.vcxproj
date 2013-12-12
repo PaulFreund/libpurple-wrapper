@@ -17,13 +17,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -42,12 +42,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>win32deps/glib/include;win32deps/libpurple/include;$(IncludePath)</IncludePath>
     <LibraryPath>win32deps/glib/lib;win32deps/libpurple/lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>win32deps/glib/include;win32deps/libpurple/include;$(IncludePath)</IncludePath>
     <LibraryPath>win32deps/glib/lib;win32deps/libpurple/lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -55,17 +53,23 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>LIBPURPLE_WRAPPER_EXPORTS;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>
-      </AdditionalDependencies>
+      <AdditionalDependencies>exchndl.lib;freebl3.lib;libjabber.lib;libmeanwhile-1.lib;libnspr4.lib;liboscar.lib;libplc4.lib;libplds4.lib;libpurple.lib;libsasl.lib;libsilc-1-1-2.lib;libsilcclient-1-1-3.lib;libssp-0.lib;libxml2-2.lib;libymsg.lib;nss3.lib;nssutil3.lib;pidgin.lib;smime3.lib;softokn3.lib;sqlite3.lib;ssl3.lib;gio-2.0.lib;glib-2.0.lib;gmodule-2.0.lib;gobject-2.0.lib;gthread-2.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
       <AdditionalDependencies>glib-2.0.lib;gmodule-2.0.lib;gobject-2.0.lib;gthread-2.0.lib;exchndl.lib;freebl3.lib;libjabber.lib;libmeanwhile-1.lib;libnspr4.lib;liboscar.lib;libplc4.lib;libplds4.lib;libpurple.lib;libsasl.lib;libsilc-1-1-2.lib;libsilcclient-1-1-3.lib;libssp-0.lib;libxml2-2.lib;libymsg.lib;nss3.lib;nssutil3.lib;pidgin.lib;smime3.lib;softokn3.lib;sqlite3.lib;ssl3.lib</AdditionalDependencies>
     </Lib>
+    <PostBuildEvent>
+      <Command>copy $(ProjectDir)win32deps\dlls\* $(SolutionDir)$(Configuration)\
+mkdir  $(SolutionDir)$(Configuration)\plugins
+mkdir  $(SolutionDir)$(Configuration)\sasl2
+copy $(ProjectDir)win32deps\dlls\plugins\* $(SolutionDir)$(Configuration)\plugins\
+copy $(ProjectDir)win32deps\dlls\sasl2\* $(SolutionDir)$(Configuration)\sasl2\</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -75,19 +79,25 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>LIBPURPLE_WRAPPER_EXPORTS;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>
-      </AdditionalDependencies>
+      <AdditionalDependencies>exchndl.lib;freebl3.lib;libjabber.lib;libmeanwhile-1.lib;libnspr4.lib;liboscar.lib;libplc4.lib;libplds4.lib;libpurple.lib;libsasl.lib;libsilc-1-1-2.lib;libsilcclient-1-1-3.lib;libssp-0.lib;libxml2-2.lib;libymsg.lib;nss3.lib;nssutil3.lib;pidgin.lib;smime3.lib;softokn3.lib;sqlite3.lib;ssl3.lib;gio-2.0.lib;glib-2.0.lib;gmodule-2.0.lib;gobject-2.0.lib;gthread-2.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
       <AdditionalDependencies>glib-2.0.lib;gmodule-2.0.lib;gobject-2.0.lib;gthread-2.0.lib;exchndl.lib;freebl3.lib;libjabber.lib;libmeanwhile-1.lib;libnspr4.lib;liboscar.lib;libplc4.lib;libplds4.lib;libpurple.lib;libsasl.lib;libsilc-1-1-2.lib;libsilcclient-1-1-3.lib;libssp-0.lib;libxml2-2.lib;libymsg.lib;nss3.lib;nssutil3.lib;pidgin.lib;smime3.lib;softokn3.lib;sqlite3.lib;ssl3.lib</AdditionalDependencies>
     </Lib>
+    <PostBuildEvent>
+      <Command>copy $(ProjectDir)win32deps\dlls\* $(SolutionDir)$(Configuration)\
+mkdir  $(SolutionDir)$(Configuration)\plugins
+mkdir  $(SolutionDir)$(Configuration)\sasl2
+copy $(ProjectDir)win32deps\dlls\plugins\* $(SolutionDir)$(Configuration)\plugins\
+copy $(ProjectDir)win32deps\dlls\sasl2\* $(SolutionDir)$(Configuration)\sasl2\</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="libpurple-wrapper.cpp" />
